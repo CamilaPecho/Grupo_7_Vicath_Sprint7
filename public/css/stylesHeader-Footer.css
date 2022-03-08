@@ -199,6 +199,11 @@ button.enemy{
     padding: 0px 15px;
 }
 
+.switch
+{
+    display: none;
+}
+
 @media(min-width: 426px) {
 
     .form-busqueda button{
@@ -302,6 +307,7 @@ input.enemy{
     } 
 
     .switch {
+        display: block;
         background: #343D5B;
         border-radius: 1000px;
         border: none;

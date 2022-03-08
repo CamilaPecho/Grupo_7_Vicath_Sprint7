@@ -1,6 +1,7 @@
 const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 const db = require("../database/models");
 const { Op } = require("sequelize");
+const {validationResult} = require("express-validator")
 const moment = require("moment")
 
 let categories = db.category.findAll();
@@ -241,41 +242,42 @@ const productController = {
     },
 
     productAdd: (req,res) =>{
+
+        const resultadosValidaciones = validationResult(req)
         let images= []
-        if(req.files.length>4)
+        let categoriesOrder =  db.category.findAll(
+            {
+                order: [
+                    ['name','ASC']
+                ]
+            }
+        );
+
+        let brands = db.brand.findAll(
+            {
+                order: [
+                    ['name','ASC']
+                ]
+            }
+        );
+
+        let colors = db.color.findAll(
+            {
+                order: [
+                    ['name','ASC']
+                ]
+            }
+        );
+
+        if(!resultadosValidaciones.isEmpty())
         {
-            let categoriesOrder =  db.category.findAll(
-                {
-                    order: [
-                        ['name','ASC']
-                    ]
-                }
-            );
-
-            let brands = db.brand.findAll(
-                {
-                    order: [
-                        ['name','ASC']
-                    ]
-                }
-            );
-
-            let colors = db.color.findAll(
-                {
-                    order: [
-                        ['name','ASC']
-                    ]
-                }
-            );
-
             Promise.all([categoriesOrder,brands,colors])
-            .then(function([categories,brands,colors])
-                {
-                    return res.render('./products/productAdd',{errors: {
-                        avatar: { msg:"Amigo, te dije que eran 4 imágenes D:" }}
-                    , idUsuario: req.params.id, categories,brands,colors})
-                })
+            .then(function([categories,brands,colors]) 
+            {
                 
+                return res.render('./products/productAdd', {errors: resultadosValidaciones.mapped(), oldData: req.body, idUsuario: req.params.id, categories, brands, colors})
+            }
+            )
         }
         else
         {
@@ -363,41 +365,43 @@ const productController = {
     },
     
     productEdit:(req,res)=>{
+        const resultadosValidaciones = validationResult(req)
         let images= []
-        if(req.files.length>4)
+        let producto = db.product.findByPk(req.params.id);
+
+        let categoriesOrder =  db.category.findAll(
+            {
+                order: [
+                    ['name','ASC']
+                ]
+            }
+        );
+
+        let brands = db.brand.findAll(
+            {
+                order: [
+                    ['name','ASC']
+                ]
+            }
+        );
+
+        let colors = db.color.findAll(
+            {
+                order: [
+                    ['name','ASC']
+                ]
+            }
+        );
+
+        if(!resultadosValidaciones.isEmpty())
         {
-            let categoriesOrder =  db.category.findAll(
-                {
-                    order: [
-                        ['name','ASC']
-                    ]
-                }
-            );
-
-            let brands = db.brand.findAll(
-                {
-                    order: [
-                        ['name','ASC']
-                    ]
-                }
-            );
-
-            let colors = db.color.findAll(
-                {
-                    order: [
-                        ['name','ASC']
-                    ]
-                }
-            );
-
-            Promise.all([categoriesOrder,brands,colors])
-            .then(function([categories,brands,colors])
-                {
-                    return res.render('./products/productAdd',{errors: {
-                        avatar: { msg:"Amigo, te dije que eran 4 imágenes D:" }}
-                    , idUsuario: req.params.id, categories,brands,colors})
-                })
+            Promise.all([producto, categoriesOrder,brands,colors])
+            .then(function([producto, categories,brands,colors]) 
+            {
                 
+                return res.render('./products/productEdit', {errors: resultadosValidaciones.mapped(), oldData: req.body, idUsuario: req.params.id, categories, brands, colors, producto})
+            }
+            )
         }
         else{
             if(req.files != undefined){

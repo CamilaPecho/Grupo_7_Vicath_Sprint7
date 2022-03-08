@@ -5,6 +5,7 @@ const imagesProduct = require('../middlewares/imagesProduct.js');
 const guestMiddleware = require('../middlewares/guestMiddleware.js');
 const authMiddleware = require('../middlewares/authMiddleware.js')
 const adminMiddleware = require('../middlewares/adminMiddleware.js')
+const validacionesProductos = require('../middlewares/validationsProducts.js');
 
 router.get('/all', productController.all);
 
@@ -22,10 +23,10 @@ router.get('/filtrado',productController.filter)
 
 //Para agregar un producto
 router.get('/create', authMiddleware, adminMiddleware, productController.viewProductAdd); //para devolver la vista formulario
-router.post('/create', imagesProduct.array('image'), productController.productAdd);
+router.post('/create', imagesProduct.array('image'), validacionesProductos, productController.productAdd);
 
 router.get("/edit/:id", authMiddleware, adminMiddleware, productController.viewProductEdit);
-router.put("/edit/:id",imagesProduct.array('image'), productController.productEdit);
+router.put("/edit/:id",imagesProduct.array('image'), validacionesProductos, productController.productEdit);
 //Para listar productos tabla admin 📖
 router.get('/viewProducts', authMiddleware, adminMiddleware, productController.viewProducts);
 

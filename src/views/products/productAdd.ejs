@@ -39,87 +39,160 @@
     </header>
     <main class="createProduct">
         <div class="contenedorCrear">
-        <form action="/products/create" method="POST" class="crear" enctype="multipart/form-data">
+        <form action="/products/create" method="POST" class="crear" id="formularioProd" enctype="multipart/form-data">
             <h3>Crear Producto</h3>
             <div>
                 <h4>Nombre Producto</h4>
-                <input class="dato" type="text" name="name" id="name" placeholder="Titulo" required> 
+                <input class="dato" type="text" name="name" id="name" value="<%= (locals.oldData) ? oldData.name : null%>" placeholder="Titulo">
+                <div class="text-danger" id="nameError"></div> 
             </div>
+            <% if (locals.errors && errors.name) { %>
+                <div class="errorValidacion">
+                    <p><%= errors.name.msg %></p>
+                </div> 
+            <% } %>
             <div >
                 <h4>Imágenes (puede seleccionar como máximo 4 imágenes)</h4>
-                <input class="imagen" type="file" name="image" id="image"  placeholder="imagen" multiple>  
+                <input class="imagen" type="file" name="image" id="image"  placeholder="imagen" multiple>
+                <div class="text-danger" id="imageError"></div>   
             </div>
-            <% if (locals.errors && errors.avatar) { %>
+            <% if (locals.errors && errors.image) { %>
                 <div class="errorValidacion">
-                    <p><%= errors.avatar.msg %></p>
+                    <p><%= errors.image.msg %></p>
                 </div> 
             <% } %>
             <div>
                 <h4>Descripcion</h4>
-                <input class="dato" type="text" name="description" id="price" placeholder="Descripcion corta" required> 
+                <input class="dato" type="text" name="description" id="description" value="<%= (locals.oldData) ? oldData.description : null %>" placeholder="Descripcion corta"> 
+                <div class="text-danger" id="descriptionError"></div>
             </div>
+            <% if (locals.errors && errors.description) { %>
+                <div class="errorValidacion">
+                    <p><%= errors.description.msg %></p>
+                </div> 
+            <% } %>
             <div>
                 <h4>Descripcion Completa</h4>
-                <textarea class="dato" name="extended_description" cols="20" rows="5" id="extended_description" placeholder="Descripcion" required  ></textarea>
+                <textarea class="dato" name="extended_description" cols="20" rows="5" id="extended_description" placeholder="Descripcion"><%= (locals.oldData) ? oldData.extended_description : null %></textarea>
+                <div class="text-danger" id="descriptionExtendedError"></div>
             </div>
+            <% if (locals.errors && errors.extended_description) { %>
+                <div class="errorValidacion">
+                    <p><%= errors.extended_description.msg %></p>
+                </div> 
+            <% } %>
             <div>
                 <h4>Precio</h4>
-                <input class="dato" type="number" name="price" id="price" placeholder="Precio" required> 
+                <input class="dato" type="number" name="price" id="price" value="<%= (locals.oldData) ? oldData.price : null %>" placeholder="Precio"> 
+                <div class="text-danger" id="priceError"></div>
             </div>
+            <% if (locals.errors && errors.price) { %>
+                <div class="errorValidacion">
+                    <p><%= errors.price.msg %></p>
+                </div> 
+            <% } %>
             <div>
                 <h4>Descuento</h4>
-                <input class="dato" type="number" min="0" max="100" name="discount" id="discount" placeholder="Descuento(%)" required> 
+                <input class="dato" type="number" name="discount" id="discount" value="<%= (locals.oldData) ? oldData.discount : null %>" placeholder="Descuento(%)"> 
+                <div class="text-danger" id="discountError"></div>
             </div>
+            <% if (locals.errors && errors.discount) { %>
+                <div class="errorValidacion">
+                    <p><%= errors.discount.msg %></p>
+                </div> 
+            <% } %>
             <div class="inputs">
                 <div class="inputsData">
                     <h4>Stock</h4>
-                    <input class="dato" type="number" min="0" name="stock" id="stock" placeholder="stock" required> 
+                    <input class="dato" type="number" name="stock" id="stock" value="<%= (locals.oldData) ? oldData.stock : null %>" placeholder="Stock"> 
+                    <div class="text-danger" id="stockError"></div>
                 </div>
+                <% if (locals.errors && errors.stock) { %>
+                    <div class="errorValidacion">
+                        <p><%= errors.stock.msg %></p>
+                    </div> 
+                <% } %>
                 <div class="inputsData">
                     <h4>Stock Minimo</h4>
-                    <input class="dato" type="number" min="0" name="stock_min" id="stock_min" required> 
+                    <input class="dato" type="number" name="stock_min" id="stock_min" value="<%= (locals.oldData) ? oldData.stock_min : null %>" placeholder="Stock minimo"> 
+                    <div class="text-danger" id="stockMinError"></div>
                 </div>
+                <% if (locals.errors && errors.stock_min) { %>
+                    <div class="errorValidacion">
+                        <p><%= errors.stock_min.msg %></p>
+                    </div> 
+                <% } %>
                 <div class="inputsData">
                     <h4>Stock Maximo</h4>
-                    <input class="dato" type="number" min="0" name="stock_max" id="stock_max" required> 
+                    <input class="dato" type="number" name="stock_max" id="stock_max" value="<%= (locals.oldData) ? oldData.stock_max : null %>" placeholder="Stock máximo"> 
+                    <div class="text-danger" id="stockMaxError"></div>
                 </div>
+                <% if (locals.errors && errors.stock_max) { %>
+                    <div class="errorValidacion">
+                        <p><%= errors.stock_max.msg %></p>
+                    </div> 
+                <% } %>
             </div>
             <div class="inputs">
                 <div class="inputsData">
                     <h4>Elegir Categoria</h4>
-                    <select name="category">
+                    <select name="category" id="category">
+                        <option value=''>Seleccione</option> 
                         <% for( let category of categories ) { %>
-                            <option value='<%=category.id %>'><%=category.name%></option> 
+                            <option value='<%=category.id %>' <%= (locals.oldData && (oldData.category == category.id)) ? "selected" : "" %>><%=category.name%></option> 
                         <% } %>
                     </select>
+                    <div class="text-danger" id="categoryError"></div>
                 </div>
+                <% if (locals.errors && errors.category) { %>
+                    <div class="errorValidacion">
+                        <p><%= errors.category.msg %></p>
+                    </div> 
+                <% } %>
                 <div class="inputsData">
                     <h4>Elegir Color</h4>
-                    <select name="color">
+                    <select name="color" id="color">
+                        <option value=''>Seleccione</option> 
                         <% for( let color of colors ) { %>
                             
-                            <option value="<%=color.id %>"><%=color.name%></option> 
+                            <option value="<%=color.id %>" <%= (locals.oldData && (oldData.color == color.id)) ? "selected" : "" %>><%=color.name%></option> 
                             
                         <% } %>
                     </select>
+                    <div class="text-danger" id="colorError"></div>
                 </div>
+                <% if (locals.errors && errors.color) { %>
+                    <div class="errorValidacion">
+                        <p><%= errors.color.msg %></p>
+                    </div> 
+                <% } %>
                 <div class="inputsData">
                     <h4>Elegir Marca</h4>
-                    <select name="brand">
+                    <select name="brand" id="brand">
+                        <option value=''>Seleccione</option> 
                         <% for( let brand of brands ) { %>
-                            <option value="<%=brand.id %>"><%=brand.name%></option> 
+                            <option value="<%=brand.id %>" <%= (locals.oldData && (oldData.brand == brand.id)) ? "selected" : "" %>><%=brand.name%></option> 
                         <% } %>
                     </select>
+                    <div class="text-danger" id="brandError"></div>
                 </div>
+                <% if (locals.errors && errors.brand) { %>
+                    <div class="errorValidacion">
+                        <p><%= errors.brand.msg %></p>
+                    </div> 
+                <% } %>
             </div>
             <div class = "botones">
                 <button class= "botonCrear" type="submit"> Crear </button>
                 <a href="/products/viewProducts"><button class= "botonCancelar" type="button"> Cancelar </button></a>
             </div>
         </form>
+        <div class="text-danger" id="formError"></div> 
         </div>
 
     </main>
     <%- include('../partials/footer') %> 
+    <script type="text/javascript" src="https://unpkg.com/validator@latest/validator.min.js"></script>
+    <script src="/js/validacionProductos.js"></script>
 </body>
 </html>

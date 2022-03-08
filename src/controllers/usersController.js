@@ -211,8 +211,7 @@ const userController = {
             })
         }
         
-        
-        db.user.findOne({
+        else{db.user.findOne({
             where: {
                 email: {[Op.like]: req.body.email}
             }
@@ -233,23 +232,11 @@ const userController = {
             else{
                 //return res.send("no lo encontre")
                 if(req.body.contrasenia == req.body.contrasenia2 ){
-                    //contraseniaEncriptada = bcript.hashSync(req.body.contrasenia,12) 
-                }else{
-                    db.category.findAll()
-                    .then(function(categories)
-                    {
-                    return res.render('./users/editMailAndPass',{errors: {
-                        contrasenia: {
-                            msg:"Las contraseñas no coinciden"
-                        }
-                    }, idUsuario: req.params.id, categories})
-                })
-                }
-    
-                //Acá viene el update
+                    contraseñaEncriptada = bcript.hashSync(req.body.contrasenia,12)
+                    //Acá viene el update
                 db.user.update({
                     email: req.body.email,
-                    password: req.body.contrasenia
+                    password: contraseñaEncriptada
                 }, {
                     where: {id: req.params.id}
                 })
@@ -272,8 +259,46 @@ const userController = {
                     })
                 })
                 .catch(error => res.send (error))
+                    //contraseniaEncriptada = bcript.hashSync(req.body.contrasenia,12) 
+                }else{
+                    db.category.findAll()
+                    .then(function(categories)
+                    {
+                    return res.render('./users/editMailAndPass',{errors: {
+                        contrasenia: {
+                            msg:"Las contraseñas no coinciden"
+                        }
+                    }, idUsuario: req.params.id, categories})
+                })
+                }
+    
+                //Acá viene el update
+                /*db.user.update({
+                    email: req.body.email
+                }, {
+                    where: {id: req.params.id}
+                })
+                .then(function(respuestaUpdate)
+                {
+                    db.user.findOne({
+                        where: {
+                            email: {[Op.like]: req.body.email}
+                        }
+                    })
+                    .then(function(usuarioEncontrado)
+                    {
+                        delete usuarioEncontrado.contrasenia;
+                        req.session.usuarioLogeado = usuarioEncontrado;
+                       
+                        return res.redirect("/profile")
+                    })
+                    .catch(error =>{
+                        res.send (error)
+                    })
+                })
+                .catch(error => res.send (error))*/
             }
-        })
+        })}
     },
 
     edit: (req,res)=>{
