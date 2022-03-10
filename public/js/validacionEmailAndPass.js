@@ -2,7 +2,8 @@
 let email = document.querySelector('#email')
 let pass = document.querySelector('#contrasenia')
 let repass = document.querySelector('#contrasenia2')
-let formularioEdit = document.querySelector('#formularioEdit')
+let formularioEmailEdit = document.querySelector('#formularioEmailEdit')
+let formularioPassEdit = document.querySelector('#formularioPassEdit')
 let erroresGeneralFormulario = document.querySelector('#erroresGeneral')
 let listaErrores = document.querySelector('#erroresListaGeneral')
 
@@ -10,7 +11,8 @@ let listaErrores = document.querySelector('#erroresListaGeneral')
 let emailError = document.querySelector('#emailError')
 let passError = document.querySelector('#passError')
 let repassError = document.querySelector('#repassError')
-let formularioError = document.querySelector("#formError")
+let formularioEmailError = document.querySelector("#formEmailError")
+let formularioPassError = document.querySelector("#formPassError")
 
 //Objeto literal contenedor de errores
 let errors = {}
@@ -26,7 +28,7 @@ pass.addEventListener("blur", passwordGlobalValidator)
 repass.addEventListener("blur", repasswordGlobalValidator)
 
 //Asignando oyente al formulario general
-formularioEdit.addEventListener("submit", function(event)
+formularioEmailEdit.addEventListener("submit", function(event)
 {
     let listaErrores = document.querySelector('#erroresListaGeneral')
     if(Object.keys(errors).length >=1)
@@ -37,28 +39,59 @@ formularioEdit.addEventListener("submit", function(event)
         //listaErrores.innerHTML = ""
         //listaErrores.innerHTML += (errors.email) ? "<li>" + errors.email + "</li>" : ""
         //listaErrores.innerHTML += (errors.pass) ? "<li>" + errors.pass + "</li>" : ""
-        formularioError.innerHTML = "Fijate los errores de los campos"
-            formularioError.classList.add('cambiando');
+        formularioEmailError.innerHTML = "Fijate los errores de los campos"
+            formularioEmailError.classList.add('cambiando');
     }
     else{
-        if(email.value.length==0 || pass.value.length==0 || repass.value.length==0)
+        if(email.value.length==0)
         {
             event.preventDefault()
             console.log("Ade")
-            formularioError.innerHTML = "Ningún campo debe quedar vacio"
-            formularioError.classList.add('cambiando');
+            formularioEmailError.innerHTML = "Ningún campo debe quedar vacio"
+            formularioEmailError.classList.add('cambiando');
+        }
+            else{
+                formularioEmailError.innerHTML = ""
+                formularioEmailError.classList.remove('cambiando');
+                formularioEmailEdit.submit()
+            }
+        
+    }
+})
+
+formularioPassEdit.addEventListener("submit", function(event)
+{
+    let listaErrores = document.querySelector('#erroresListaGeneral')
+    if(Object.keys(errors).length >=1)
+    {
+        event.preventDefault()
+        //erroresGeneralFormulario.classList.add("errores-general")
+        //Ahora empieza la magia
+        //listaErrores.innerHTML = ""
+        //listaErrores.innerHTML += (errors.email) ? "<li>" + errors.email + "</li>" : ""
+        //listaErrores.innerHTML += (errors.pass) ? "<li>" + errors.pass + "</li>" : ""
+        formularioPassError.innerHTML = "Fijate los errores de los campos"
+            formularioPassError.classList.add('cambiando');
+    }
+    else{
+        if(pass.value.length==0 || repass.value.length==0)
+        {
+            event.preventDefault()
+            console.log("Ade")
+            formularioPassError.innerHTML = "Ningún campo debe quedar vacio"
+            formularioPassError.classList.add('cambiando');
         }
         else{
             if(pass.value != repass.value)
             {
                 event.preventDefault()
-                formularioError.innerHTML = "Las contraseñas deben ser las mismas"
-                formularioError.classList.add('cambiando')
+                formularioPassError.innerHTML = "Las contraseñas deben ser las mismas"
+                formularioPassError.classList.add('cambiando')
             }
             else{
-                formularioError.innerHTML = ""
-                formularioError.classList.remove('cambiando');
-                formulario.submit()
+                formularioPassError.innerHTML = ""
+                formularioPassError.classList.remove('cambiando');
+                formularioPassEdit.submit()
             }
         }
     }

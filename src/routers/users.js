@@ -4,7 +4,8 @@ const router = express.Router();
 const validacionesLogin = require('../middlewares/validateLoginMiddleware.js');
 const validacionesRegister = require('../middlewares/validationsRegister.js');
 const validacionesEdit = require('../middlewares/validationsEditUser.js');
-const validacionesEmailAndPass = require('../middlewares/validationsEmailAndPass.js')
+const validacionesEmail = require('../middlewares/validationsOnlyEmail.js')
+const validacionesPass = require('../middlewares/validationsOnlyPass.js')
 const avatarProfile = require('../middlewares/imageRegister.js');
 const guestMiddleware = require('../middlewares/guestMiddleware.js');
 const authMiddleware = require('../middlewares/authMiddleware.js')
@@ -23,7 +24,8 @@ router.get("/edit/:id", authMiddleware, userController.editVista)
 router.put("/edit/:id", avatarProfile.single('avatar'), validacionesEdit, userController.edit)
 
 router.get("/changeEmailAndPass/:id", authMiddleware, userController.editEmailAndPass)
-router.put("/changeEmailAndPass/:id", validacionesEmailAndPass, userController.editEmailAndPassPUT)
+router.put("/changeEmail/:id", validacionesEmail, userController.editEmailPUT)
+router.put("/changePass/:id", validacionesPass, userController.editPassPUT)
 
 router.get('/homeAdmin', authMiddleware, adminMiddleware, userController.homeAdmin)
 router.get('/modocliente', authMiddleware, adminMiddleware, userController.modoCliente)

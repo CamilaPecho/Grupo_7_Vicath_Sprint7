@@ -198,7 +198,68 @@ const userController = {
         
     },
 
-    editEmailAndPassPUT: (req,res)=>
+    editPassPUT: (req,res)=>
+    {
+        const resultadosValidaciones = validationResult(req);
+                
+        if(!resultadosValidaciones.isEmpty())
+        {
+            db.category.findAll()
+            .then(function(categories)
+            {
+            return res.render('./users/editMailAndPass', {errors: resultadosValidaciones.mapped(), idUsuario: req.params.id, categories})
+            })
+        }
+        
+        else{
+        
+                    if(req.body.contrasenia == req.body.contrasenia2){
+                        contraseñaEncriptada = bcript.hashSync(req.body.contrasenia,12)
+                  
+                        //Acá viene el update
+                    db.user.update({
+                        password: contraseñaEncriptada
+                    }, {
+                        where: {id: req.params.id}
+                    })
+                    .then(function(respuestaUpdate)
+                    {
+                        db.user.findOne({
+                            where: {
+                                email: {[Op.like]: req.session.usuarioLogeado.email}
+                            }
+                        })
+                        .then(function(usuarioEncontrado)
+                        {
+                            delete usuarioEncontrado.contrasenia;
+                            req.session.usuarioLogeado = usuarioEncontrado;
+                           
+                            return res.redirect("/profile")
+                        })
+                        .catch(error =>{
+                            res.send (error)
+                        })
+                    })
+                    .catch(error => res.send (error))
+                    }
+                    else{
+                        db.category.findAll()
+                        .then(function(categories)
+                        {
+                        return res.render('./users/editMailAndPass',{errors: {
+                            contrasenia: {
+                                msg:"Las contraseñas no coinciden"
+                            }
+                        }, idUsuario: req.params.id, categories})
+                    })
+                    }
+                }
+    
+                
+            
+        
+    },
+    editEmailPUT: (req,res)=>
     {
         const resultadosValidaciones = validationResult(req);
                 
@@ -230,73 +291,37 @@ const userController = {
                 })
             }
             else{
-                //return res.send("no lo encontre")
-                if(req.body.contrasenia == req.body.contrasenia2 ){
-                    contraseñaEncriptada = bcript.hashSync(req.body.contrasenia,12)
-                    //Acá viene el update
-                db.user.update({
-                    email: req.body.email,
-                    password: contraseñaEncriptada
-                }, {
-                    where: {id: req.params.id}
-                })
-                .then(function(respuestaUpdate)
-                {
-                    db.user.findOne({
-                        where: {
-                            email: {[Op.like]: req.body.email}
-                        }
+                
+                    console.log("-------------Sólo actualiza mail------------------")
+                    db.user.update({
+                        email: req.body.email
+                    }, {
+                        where: {id: req.params.id}
                     })
-                    .then(function(usuarioEncontrado)
+                    .then(function(respuestaUpdate)
                     {
-                        delete usuarioEncontrado.contrasenia;
-                        req.session.usuarioLogeado = usuarioEncontrado;
-                       
-                        return res.redirect("/profile")
+                        db.user.findOne({
+                            where: {
+                                email: {[Op.like]: req.body.email}
+                            }
+                        })
+                        .then(function(usuarioEncontrado)
+                        {
+                            delete usuarioEncontrado.contrasenia;
+                            req.session.usuarioLogeado = usuarioEncontrado;
+                           
+                            return res.redirect("/profile")
+                        })
+                        .catch(error =>{
+                            res.send (error)
+                        })
                     })
-                    .catch(error =>{
-                        res.send (error)
+                    .catch(err => {
+                        console.log(err)
                     })
-                })
-                .catch(error => res.send (error))
-                    //contraseniaEncriptada = bcript.hashSync(req.body.contrasenia,12) 
-                }else{
-                    db.category.findAll()
-                    .then(function(categories)
-                    {
-                    return res.render('./users/editMailAndPass',{errors: {
-                        contrasenia: {
-                            msg:"Las contraseñas no coinciden"
-                        }
-                    }, idUsuario: req.params.id, categories})
-                })
-                }
-    
-                //Acá viene el update
-                /*db.user.update({
-                    email: req.body.email
-                }, {
-                    where: {id: req.params.id}
-                })
-                .then(function(respuestaUpdate)
-                {
-                    db.user.findOne({
-                        where: {
-                            email: {[Op.like]: req.body.email}
-                        }
-                    })
-                    .then(function(usuarioEncontrado)
-                    {
-                        delete usuarioEncontrado.contrasenia;
-                        req.session.usuarioLogeado = usuarioEncontrado;
-                       
-                        return res.redirect("/profile")
-                    })
-                    .catch(error =>{
-                        res.send (error)
-                    })
-                })
-                .catch(error => res.send (error))*/
+                
+
+               
             }
         })}
     },
