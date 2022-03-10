@@ -189,6 +189,62 @@ div.cantidad {
     width: 70%;
 }
 
+/*Boton compartir.............*/
+/*Botom compartir*/
+#btn-mas
+{
+    display: none;
+}
+
+.contenedor-redes
+{
+   display: flex;
+   margin-top: 12px;
+}
+
+.redes a{
+    display: flex;
+    flex-direction: row;
+    text-decoration: none;
+    background: #FF7070;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    margin-right: -15px;
+    opacity: 0;
+    visibility: hidden;
+    justify-content: center;
+    align-items: center;
+    transition: all 500ms ease;
+}
+
+#btn-mas:checked+ .redes a{
+    margin-right: 10px;
+    opacity: 1;
+    visibility: visible;
+}
+
+.redes
+{
+    display: flex;
+}
+
+.compartir
+{
+    order: -1;
+    margin-right: 16px;
+    cursor: pointer;
+}
+
+.iconFace img, .iconIg img, .iconLk img{
+    width: 46px;
+}
+
+.contenedorCompartir
+{
+    order: -1;
+}
+
 /*-----------adaptaciones ----------*/
 
 @media (min-width:361px){
@@ -410,53 +466,4 @@ div.cantidad {
     }
 
 
-
-/*Botom compartir*/
-    #btn-mas
-    {
-        display: none;
-    }
-
-    .contenedor-redes
-    {
-       display: flex;
-    }
-
-    .redes a{
-        display: flex;
-        flex-direction: row;
-        text-decoration: none;
-        background: #FF7070;
-        width: 55px;
-        height: 55px;
-        border-radius: 50%;
-        margin-right: -15px;
-        opacity: 0;
-        visibility: hidden;
-        justify-content: center;
-        align-items: center;
-        transition: all 500ms ease;
-    }
-
-    #btn-mas:checked+ .redes a{
-        margin-right: 10px;
-        opacity: 1;
-        visibility: visible;
-    }
-
-    .redes
-    {
-        display: flex;
-    }
-
-    .compartir
-    {
-        order: -1;
-        margin-right: 16px;
-        cursor: pointer;
-    }
-
-    .iconFace img, .iconIg img, .iconLk img{
-        width: 46px;
-    }
 }

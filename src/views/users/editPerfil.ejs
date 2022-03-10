@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
     <link rel="stylesheet" href="/css/stylesHeader-Footer.css">
     <link rel="stylesheet" href="/css/stylesRegister.css">
+    <link rel="stylesheet" href="/css/editPassAndEmail.css">
 </head>
 <body>
     <% if (locals.usuarioHeaderAdmin) { %>
@@ -51,7 +52,7 @@
     <% } %> 
     <main class="register">
         <div>
-        <form action="/edit/<%= usuarioDatos.id %>?_method=PUT" method="POST" class="continuar" enctype="multipart/form-data">
+        <form action="/edit/<%= usuarioDatos.id %>?_method=PUT" method="POST" id="formularioEdit" class="continuar" enctype="multipart/form-data">
             <h3>Editá tus datos</h3>
             <h4> <i class="fas fa-user-circle"></i> Datos Personales<br></h4>
             <div >
@@ -63,7 +64,8 @@
                 </div> 
             <% } %>
             <div >
-                <input class="dato" type="text" name="nombre" id="nombre" minlength="3" value= "<%= locals.usuarioDatos? usuarioDatos.first_name:null %>" placeholder="Nombre" > 
+                <input class="dato" type="text" name="nombre" id="nombre" minlength="2" value= "<%= locals.usuarioDatos? usuarioDatos.first_name:null %>" placeholder="Nombre" > 
+                <div class="text-danger" id="nameError"></div>
             </div>
             <% if (locals.errors && errors.nombre) { %>
                 <div class="errorValidacion">
@@ -71,7 +73,8 @@
                 </div> 
             <% } %>
             <div >
-                <input class="dato"type="text" name="apellido" id="apeliido" minlength="3" value= "<%= locals.usuarioDatos? usuarioDatos.last_name:null %>" placeholder="Apellido" >  
+                <input class="dato"type="text" name="apellido" id="apellido" minlength="2" value= "<%= locals.usuarioDatos? usuarioDatos.last_name:null %>" placeholder="Apellido" >  
+                <div class="text-danger" id="lastNameError"></div>
             </div>
             <% if (locals.errors && errors.apellido) { %>
                 <div class="errorValidacion">
@@ -80,6 +83,7 @@
             <% } %>
             <div>
                 <input class="dato"type="text" name="telefono" id="telefono" minlength="10" value="<%= locals.usuarioDatos? usuarioDatos.phone_number:null %>" placeholder="Telefono movil" > 
+                <div class="text-danger" id="phoneNumberError"></div>
             </div>
             <% if (locals.errors && errors.telefono) { %>
                 <div class="errorValidacion">
@@ -93,10 +97,13 @@
                 <button class= "botonRegistro" type="submit"> editar </button>
                 <button class= "botonRegistro" type="reset"> cancelar </button>
             </div>
+            <div class="text-danger" id="formError"></div>
         </form>
         </div>
        
     </main>
     <%- include('../partials/footer') %> 
+    <script type="text/javascript" src="https://unpkg.com/validator@latest/validator.min.js"></script>
+    <script src="/js/validacionEditPerfil.js"></script>
 </body>
 </html>
