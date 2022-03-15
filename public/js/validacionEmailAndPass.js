@@ -169,9 +169,9 @@ function passwordValidator(passGeneric, divError)
     }
     else
     {
-        if(passGeneric.value.length < 6)
+        if(passGeneric.value.length < 8)
         {
-            let error = "La contraseña no puede tener menos de 6 caracteres"
+            let error = "La contraseña no puede tener menos de 8 caracteres"
             errors.pass = error
             divError.innerHTML = error
             validatorGeneric(passGeneric, divError)

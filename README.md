@@ -2,8 +2,8 @@ Credenciales
 <hr>
 Usuario normal:
 
- - E-mail: limberth.estrada@gmail.com
- - Pass: 123456
+ - E-mail: lucas@gmail.com
+ - Pass: 12345678
 
 
 Admins:

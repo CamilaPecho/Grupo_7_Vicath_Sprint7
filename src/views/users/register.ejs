@@ -63,11 +63,11 @@
             <% } %>
             <h4> <i class="fas fa-lock"></i> Contraseña<br></h4>
             <div > 
-                <input class="dato" type="password" name="contrasenia" minlength="6" id="contrasenia" placeholder="Contraseña" >
+                <input class="dato" type="password" name="contrasenia" minlength="8" id="contrasenia" placeholder="Contraseña" >
                 <div class="text-danger" id="contraseniaError"></div>
             </div>
             <div >
-                <input class="dato" type="password" name="contrasenia2" minlength="6" id="contrasenia2" placeholder="Confirmar Contraseña" >
+                <input class="dato" type="password" name="contrasenia2" minlength="8" id="contrasenia2" placeholder="Confirmar Contraseña" >
                 <div class="text-danger" id="contraseniaConfirmedError"></div>
             </div> 
             <% if (locals.errors && errors.contrasenia) { %>

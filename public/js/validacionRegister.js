@@ -206,7 +206,7 @@ function passwordValidator()
     }
     else
     {
-        if(password.value.length <6 )
+        if(password.value.length <8 )
         {
             let error = "La contraseña no puede tener menos de 8 caracteres"
             errors.pass = error
