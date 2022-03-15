@@ -18,7 +18,7 @@
             <h3>Registrate</h3>
             <h4> <i class="fas fa-user-circle"></i> Datos Personales<br></h4>
             <div >
-                <input class="dato" type="file" name="avatar" id="avatar" value= "<%= locals.usuarioDatos? usuarioDatos.avatar:null %>" accept=".jpg,.png" > 
+                <input type="file" name="avatar" id="avatar" value= "<%= locals.usuarioDatos? usuarioDatos.avatar:null %>" accept=".jpg,.png" > 
             </div>
             <% if (locals.errors && errors.avatar) { %>
                 <div class="errorValidacion">
@@ -27,6 +27,7 @@
             <% } %>
             <div >
                 <input class="dato" type="text" name="nombre" id="nombre" minlength="2" value= "<%= locals.usuarioDatos? usuarioDatos.nombre:null %>" placeholder="Nombre" > 
+                <div class="text-danger" id="nameError"></div>
             </div>
             <% if (locals.errors && errors.nombre) { %>
                 <div class="errorValidacion">
@@ -35,6 +36,7 @@
             <% } %>
             <div >
                 <input class="dato"type="text" name="apellido" id="apellido" minlength="2" value= "<%= locals.usuarioDatos? usuarioDatos.apellido:null %>" placeholder="Apellido" >  
+                <div class="text-danger" id="lastnameError"></div>
             </div>
             <% if (locals.errors && errors.apellido) { %>
                 <div class="errorValidacion">
@@ -42,7 +44,8 @@
                 </div> 
             <% } %>
             <div>
-                <input class="dato"type="text" name="telefono" id="telefono" minlength="10" value="<%= locals.usuarioDatos? usuarioDatos.telefono:null %>" placeholder="Telefono movil" > 
+                <input class="dato" type="text" name="telefono" id="telefono" minlength="10" value="<%= locals.usuarioDatos? usuarioDatos.telefono:null %>" placeholder="Telefono movil" > 
+                <div class="text-danger" id="telError"></div>
             </div>
             <% if (locals.errors && errors.telefono) { %>
                 <div class="errorValidacion">
@@ -51,6 +54,7 @@
             <% } %>
             <div >
                 <input class="dato" type="email" name="email" id="email" value= "<%= locals.usuarioDatos? usuarioDatos.email:null %>" placeholder="Correo Electronico" >
+                <div class="text-danger" id="emailError"></div>
             </div>
             <% if (locals.errors && errors.email) { %>
                 <div class="errorValidacion">
@@ -60,9 +64,11 @@
             <h4> <i class="fas fa-lock"></i> Contraseña<br></h4>
             <div > 
                 <input class="dato" type="password" name="contrasenia" minlength="6" id="contrasenia" placeholder="Contraseña" >
+                <div class="text-danger" id="contraseniaError"></div>
             </div>
             <div >
                 <input class="dato" type="password" name="contrasenia2" minlength="6" id="contrasenia2" placeholder="Confirmar Contraseña" >
+                <div class="text-danger" id="contraseniaConfirmedError"></div>
             </div> 
             <% if (locals.errors && errors.contrasenia) { %>
                 <div class="errorValidacion">
@@ -73,6 +79,7 @@
                 <button class= "botonRegistro" type="submit"> Enviar </button>
                 <button class= "botonRegistro" type="reset"> Cancelar </button>
             </div>
+            <div class="text-danger" id="formError"></div>
         </form>
         </div>
         <div >
@@ -95,6 +102,8 @@
         </div>
        
     </main>
-    <%- include('../partials/footer') %> 
+    <%- include('../partials/footer') %>
+    <script type="text/javascript" src="https://unpkg.com/validator@latest/validator.min.js"></script>
+    <script src="/js/validacionRegister.js"></script>
 </body>
 </html>
