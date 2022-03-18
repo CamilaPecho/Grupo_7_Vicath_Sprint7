@@ -21,6 +21,7 @@ router.get('/profile', authMiddleware, userController.verPerfil)
 router.get('/profileAdmin', authMiddleware, adminMiddleware, userController.verPerfilAdmin)
 
 router.get("/edit/:id", authMiddleware, userController.editVista)
+router.get("/editUser/:id", authMiddleware, userController.editVistaUser)
 router.put("/edit/:id", avatarProfile.single('avatar'), validacionesEdit, userController.edit)
 
 router.get("/changeEmailAndPass/:id", authMiddleware, userController.editEmailAndPass)

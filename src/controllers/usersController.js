@@ -188,6 +188,18 @@ const userController = {
         
     },
 
+    editVistaUser: (req,res)=>{
+
+        let categories = db.category.findAll()
+        let user = db.user.findByPk(req.params.id)
+        Promise.all([categories, user])
+        .then(function([categories, user])
+        {
+            return res.render('./users/editPerfil', {usuarioDatos: user, categories})
+        })
+        
+    },
+
     editEmailAndPass: (req,res)=>{
         db.category.findAll()
         .then(function(categories)
@@ -367,6 +379,11 @@ const userController = {
                 {
                     delete usuarioEncontrado.contrasenia;
                     req.session.usuarioLogeado = usuarioEncontrado;
+                    
+                    if(req.params.id != req.session.usuarioLogeado.id)
+                    {
+                        return res.redirect("/admin/users")
+                    }
                     return res.redirect("/profile")
                 })
                 .catch(err =>{

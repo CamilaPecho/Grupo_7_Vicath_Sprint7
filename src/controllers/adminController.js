@@ -1,5 +1,6 @@
 const db = require('../../src/database/models');
 const { Op } = require("sequelize");
+const fs = require('fs');
 
 const adminController = {
     eliminarUsuario: (req,res) =>{

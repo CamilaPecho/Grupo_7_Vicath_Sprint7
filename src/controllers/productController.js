@@ -3,6 +3,7 @@ const db = require("../database/models");
 const { Op } = require("sequelize");
 const {validationResult} = require("express-validator")
 const moment = require("moment")
+const fs = require('fs');
 
 let categories = db.category.findAll();
 

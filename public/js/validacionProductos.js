@@ -95,12 +95,12 @@ formulario.addEventListener("submit", function(evento)
 })
 
 //Para quitar el error general
-let body = document.querySelector("body")
+/*let body = document.querySelector("body")
 body.addEventListener("click", function()
 {
     erroresGeneralFormulario.classList.remove("errores-general")
     erroresGeneralFormulario.classList.add("errores-general-off")
-})
+})*/
 
 //Funciones - validadores 😜
 function validatorGeneric(input, divError)
@@ -140,7 +140,8 @@ function nombreValidador()
         }
         else
         {
-            errors.name = error
+            console.log("entre papa")
+            delete errors.name
             removiendoCambiosGeneric(nombreDelProducto, nombreError)
         }
     }
@@ -173,7 +174,7 @@ function imagenValidator()
             validatorGeneric(image, imagenError)
         }
         else{
-            errors.images = error
+            delete errors.images
             removiendoCambiosGeneric(image, imagenError)
         }
     }
@@ -190,7 +191,7 @@ function descripcionValidador()
     }
     else
         {
-            errors.description = error
+            delete errors.description
             removiendoCambiosGeneric(descripcion, descripcionError)
         }
 }
@@ -214,7 +215,7 @@ function descripcionDetalladaValidator()
         }
         else
         {
-            errors.descriptionExtended = error
+            delete errors.descriptionExtended
             removiendoCambiosGeneric(descripcionDetallada, descripcionDetalladaError)
         }
     }
@@ -240,7 +241,7 @@ function precioValidator()
         }
         else
         {
-            errors.price = error
+            delete errors.price
             removiendoCambiosGeneric(precio, precioError)
         }
     }
@@ -275,7 +276,7 @@ function descuentoValidator()
             }
             else
             {
-                errors.discount = error
+                delete errors.discount
                 removiendoCambiosGeneric(descuento, descuentoError)
             }   
         }
@@ -345,7 +346,7 @@ function stockValidator(input, divError)
         }
         else
         {
-            errors.stock = error
+            delete errors.stock
             removiendoCambiosGeneric(input, divError)
         }
     }
@@ -379,7 +380,7 @@ function selectValidator(input, divError) //ojo con el select
     }
     else
         {
-            errors.select = error
+            delete errors.select
             removiendoCambiosGeneric(input, divError)
         }
 }

@@ -67,7 +67,7 @@
                     <td id="telefono"> <%= usuario.phone_number %> </td>
                     <td id="categoria"> <%= usuario.rol.name %> </td>
                     <td>
-                        <a href="/products/edit/<%= usuario.id %>"> <button class="botonEditar" type="submit"> Editar </button></a>
+                        <a href="/editUser/<%= usuario.id %>"> <button class="botonEditar" type="submit"> Editar </button></a>
                     </td>
                     <td>
                         <form action="/admin/users/delete/<%= usuario.id %>?_method=DELETE" method="POST">
