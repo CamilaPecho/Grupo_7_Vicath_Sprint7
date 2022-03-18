@@ -38,7 +38,7 @@
     </header>
     <main class="listProducts">
         <div class="contenedorCrearPorducto">
-            <a href="/products/create"><button class="crearProducto">Agregar un usuario</button></a>
+            <a href="/admin/registerUser"><button class="crearProducto">Agregar un usuario</button></a>
         </div>
         <div class="filtradoLista">
             <form action="/" method="get" class="elegirfiltrado">
@@ -67,7 +67,7 @@
                     <td id="telefono"> <%= usuario.phone_number %> </td>
                     <td id="categoria"> <%= usuario.rol.name %> </td>
                     <td>
-                        <a href="/editUser/<%= usuario.id %>"> <button class="botonEditar" type="submit"> Editar </button></a>
+                        <a href="/admin/editUser/<%= usuario.id %>"> <button class="botonEditar" type="submit"> Editar </button></a>
                     </td>
                     <td>
                         <form action="/admin/users/delete/<%= usuario.id %>?_method=DELETE" method="POST">

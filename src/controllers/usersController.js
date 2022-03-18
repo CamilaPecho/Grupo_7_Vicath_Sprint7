@@ -188,17 +188,7 @@ const userController = {
         
     },
 
-    editVistaUser: (req,res)=>{
-
-        let categories = db.category.findAll()
-        let user = db.user.findByPk(req.params.id)
-        Promise.all([categories, user])
-        .then(function([categories, user])
-        {
-            return res.render('./users/editPerfil', {usuarioDatos: user, categories})
-        })
-        
-    },
+    
 
     editEmailAndPass: (req,res)=>{
         db.category.findAll()
