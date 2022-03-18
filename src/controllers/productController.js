@@ -4,6 +4,7 @@ const { Op } = require("sequelize");
 const {validationResult} = require("express-validator")
 const moment = require("moment")
 const fs = require('fs');
+const path = require('path')
 
 let categories = db.category.findAll();
 
@@ -488,15 +489,30 @@ const productController = {
      },
     
     productDelete:(req,res)=>{
-        db.product.update({
-            deleted: 1,
-        },
+        db.product.findByPk(req.params.id, {
+            include: [{association: "images"}]
+        })
+        .then(function(product)
         {
-            where: {id:req.params.id}
+            for (let i = 0; i < product.images.length; i++) {
+                fs.unlinkSync(path.resolve(__dirname, '../../public/images/', product.images[i].name));
+            }
+            
+            db.product.update({
+                deleted: 1,
+            },
+            {
+                where: {id:req.params.id}
+            })
+            .then( () => {
+                res.redirect('/products/viewProducts')
+            })
         })
-        .then( () => {
-            res.redirect('/products/viewProducts')
+        .catch(err => {
+            console.log(err)
         })
+        
+        
     },
 
     cart: (req,res) =>{
