@@ -31,8 +31,9 @@ const userController = {
             })
             
         }
-        
-        //Ahora voy a validar si existe en la BD y tirar su respectivo error a la vista en caso de acierto
+        else
+        {
+            //Ahora voy a validar si existe en la BD y tirar su respectivo error a la vista en caso de acierto
         db.user.findOne({
             where: {
                 email: {[Op.like]: req.body.usuario}
@@ -82,6 +83,7 @@ const userController = {
             }, categories})
             })
         })
+        }
 
     
     },
