@@ -53,7 +53,29 @@
     <div class="burger-menu">
         <i class="fa fa-bars burger"></i>
     </div>
+    
     </div>
+    
+    <div class="menuDeOpciones">
+        <ul>
+            <li><a class="enlacesMenu" href="/products/novedades">Novedades</a></li>
+            <% for( let category of categories ) { %>
+                <li><a class="enlacesMenu" href="/products/categorias/<%=category.id %>"><%=category.name%></a></li>
+            <% } %>
+            <li><a class="enlacesMenu" href="/products/all">Ver todos</a></li>
+            <% if (locals.usuarioHeader) { %>
+            <li><a href="/profile" class="enlacesMenu">Ver perfil</a></li>
+            <li><a href="/edit/<%= locals.datosUsuarioGlobal.id %>" class="enlacesMenu">Editar perfil</a></li>
+            <li><a href="/changeEmailAndPass/<%= locals.datosUsuarioGlobal.id %>" class="enlacesMenu">Cambiar e-mail y contraseña</a></li>
+            <li><a href="/logout" class="enlacesMenu">Cerrar cuenta</a></li>
+            <% } else{%>
+            
+            <li><a href="/login" class="enlacesMenu">Iniciar sesión</a></li>
+            <li><a href="/register" class="enlacesMenu">Registrate</a></li>
+            <% } %> 
+        </ul>
+    </div>
+
     <div class="button-header">
     <nav>
         <ul>

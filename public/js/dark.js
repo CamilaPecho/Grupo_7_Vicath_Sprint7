@@ -9,4 +9,26 @@ btnSwitch.addEventListener('click', () => {
 
     //Con active cambiamos de estado, y asi aplicara un nuevo estado del boton, etc.
 	btnSwitch.classList.toggle('active');
+
+
+    //Guardamos el modo en localStorage
+    if(document.body.classList.contains("dark"))
+    {
+        localStorage.setItem("dark-mode", "true")
+    }
+    else{
+        localStorage.setItem("dark-mode", "false")
+    }
 });
+
+//Obtenemos el darkmode infinito
+if(localStorage.getItem("dark-mode") === "true")
+{
+    document.body.classList.add('dark');
+    btnSwitch.classList.add('active');
+}
+else
+{
+    document.body.classList.remove('dark');
+    btnSwitch.classList.remove('active');
+}

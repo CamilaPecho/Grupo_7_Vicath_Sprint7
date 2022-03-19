@@ -117,49 +117,54 @@ const userController = {
             return res.render('./users/register', {errors: resultadosValidaciones.mapped(), usuarioDatos: req.body, categories})
             })
         }
-
-        db.user.findOne({
-            where: {
-                email: {[Op.like]: req.body.email}
-            }
-        })
-        .then(user =>{
-            if(user != null){
-                db.category.findAll()
-                .then(function(categories)
-                {
-                return res.render('./users/register',{errors: {
-                    email: { msg:"Este mail ya esta registrado" }}, usuarioDatos: req.body, categories})
-                })
+        else
+        {
+            db.user.findOne({
+                where: {
+                    email: {[Op.like]: req.body.email}
                 }
-            else{
-                if(req.body.contrasenia == req.body.contrasenia2 ){
-                    contraseñaEncriptada = bcript.hashSync(req.body.contrasenia,12) 
-                }else{
+            })
+            .then(user =>{
+                if(user != null){
                     db.category.findAll()
                     .then(function(categories)
                     {
                     return res.render('./users/register',{errors: {
-                        contrasenia: {
-                            msg:"Las contraseñas no coinciden"
-                        }
-                    },usuarioDatos: req.body, categories})
+                        email: { msg:"Este mail ya esta registrado" }}, usuarioDatos: req.body, categories})
                     })
-                }
-            
-                db.user.create({
-                    avatar: req.file? req.file.filename: "default.jpg",
-                    first_name: req.body.nombre,
-                    last_name: req.body.apellido,
-                    phone_number: req.body.telefono,
-                    email: req.body.email,
-                    password: contraseñaEncriptada,
-                    rol_id:1
+                    }
+                else{
+                    if(req.body.contrasenia == req.body.contrasenia2 ){
+                        contraseñaEncriptada = bcript.hashSync(req.body.contrasenia,12) 
+                        db.user.create({
+                            avatar: req.file? req.file.filename: "default.jpg",
+                            first_name: req.body.nombre,
+                            last_name: req.body.apellido,
+                            phone_number: req.body.telefono,
+                            email: req.body.email,
+                            password: contraseñaEncriptada,
+                            rol_id:1
+                        })
+                        .then(res.redirect("/login"))
+                        .catch(error => res.send (error))
+
+                    }else{
+                        db.category.findAll()
+                        .then(function(categories)
+                        {
+                        return res.render('./users/register',{errors: {
+                            contrasenia: {
+                                msg:"Las contraseñas no coinciden"
+                            }
+                        },usuarioDatos: req.body, categories})
+                        })
+                    }
+                
+                    
+                    }
                 })
-                .then(res.redirect("/login"))
-                .catch(error => res.send (error))
-                }
-            })
+        }
+        
         },
 
     verPerfil:(req,res)=>{

@@ -73,6 +73,40 @@ div.burger-menu{
     border-radius: 5px;
 }
 
+/*-----barra de navegacion mobile ----------*/
+.menuDeOpciones
+{
+    position: absolute;
+    top: 45px;
+    left: 0px;
+    background-color: #fed2aa;
+    z-index: 3;
+    width: 100%;
+    display: flex;
+    padding-left: 11%;
+    height: 640px;
+    align-items: center;
+    
+    transition: all 1s ease;
+}
+
+.menuDeOpciones.active{
+    height: 0;
+    overflow: hidden;
+}
+
+.menuDeOpciones li
+{
+    list-style-type: none;
+    margin: 39px 0;
+}
+
+.enlacesMenu
+{
+    text-decoration: none;
+    color: #FF7070;
+}
+
 /*---------barra de navegacion--------*/
 
 div.button-header
@@ -205,6 +239,11 @@ button.enemy{
 }
 
 @media(min-width: 426px) {
+
+    .menuDeOpciones
+{
+    display: none;
+}
 
     .form-busqueda button{
         width: 8%;

@@ -81,10 +81,11 @@ article.articuloClass{
 }
 
 .destacados img, .ofertas img, .novedades img, .listadoProductos img {
-    width: 100%;
+    width: 96%;
     border-radius: 10px;
     /* object-fit: contain; */
     display: block;
+    margin: auto;
 }
 
 .main-article-principal h4{   
@@ -112,7 +113,7 @@ article.articuloClass{
     padding: 5px;
 }
 .contenedor-precio button{
-    width: 40%;
+    width: 45%;
     border: 0;
     border-radius: 15px;
     background-color: #FF7070;
@@ -201,6 +202,7 @@ article.articuloClass{
     .destacados, .ofertas, .novedades, .listadoProductos{
         flex-wrap: wrap;
         flex-direction: row;
+        
     }
     article.articuloClass{
         width: 45%;
@@ -219,24 +221,24 @@ article.articuloClass{
         width: 70%;
     }
     article.articuloClass {
-        /* margin: 5px; */
-        width: 31%;
+        margin: 5px;
+        width: 23%;
         font-size: 15px;
         /* border-radius: 128px; */
         position: relative;
         /* margin-bottom: 17px; */
-        padding-bottom: 40px;
+        padding-bottom: 47px;
         box-shadow: -4px 4px 2px #B0B8FF;
     }
 
     .listadoProductos .articuloClass{
         margin: 15px;
-        width: 30%;
+        width: 18%;
         font-size: 15px;
         /* border-radius: 128px; */
         position: relative;
         /* margin-bottom: 17px; */
-        padding-bottom: 40px;
+        padding-bottom: 51px;
         box-shadow: -4px 4px 2px #b0b8ff;
     }
     
@@ -297,4 +299,18 @@ article.articuloClass{
     {
         transform: rotateX(180deg)
     }
+
+    .listadoProductos{
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: center;
+        width: 100%;
+    }
+    .destacados, .ofertas, .novedades{
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: flex-start;
+        width: 100%;
+    }
+    
 }
