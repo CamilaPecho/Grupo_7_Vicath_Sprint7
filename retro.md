@@ -6,6 +6,6 @@
 
 <blockquote><b>Continuar haciendo:</b> siendo el mejor equipo :D, la paciencia y el compromiso </blockquote>
 
-<blockquote><b>Hacer menos:</b> no comprometernos con hacer lo que prometimos</blockquote>
+<blockquote><b>Hacer menos:</b> No comprometernos con hacer lo que prometimos. Tratar de aprovechar los findes para ponerse al dia, no colgar con el sprint.</blockquote>
 
-<blockquote><b>Dejar de hacer:</b> dejarlo todo a ultimo momento, otra vez</blockquote>
+<blockquote><b>Dejar de hacer:</b> Dejarlo todo a ultimo momento, otra vez</blockquote>

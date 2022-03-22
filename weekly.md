@@ -1,5 +1,4 @@
-31/01 analisis, esquema y diseño de base de datos 
-7/02 empezando modelos y configuracion con sequealize
-10/02 estableciendo asociaciones de los modelos y asignando tareas
-21/02 fusionando partes de cada uno , conectando db en la nube 
+1/03 Asignación de tareas
+15/03 Encuentro para comentar los avances
+22/03 Corrigiendo errores 
 

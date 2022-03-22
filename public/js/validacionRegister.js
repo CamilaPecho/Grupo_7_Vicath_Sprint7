@@ -108,7 +108,7 @@ function nombreValidator()
         }
         else
         {
-            if(!validator.isAlpha(name.value))
+            if(validator.isNumeric(nameUser.value))
             {
                 let error = "El nombre solo puede contener letras,corregilo por favor."
                 errors.name = error
