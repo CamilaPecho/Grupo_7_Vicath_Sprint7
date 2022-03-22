@@ -5,7 +5,9 @@ let telephone = document.querySelector('#telefono')
 let email = document.querySelector('#email')
 let password = document.querySelector('#contrasenia')
 let passwordConfirmed = document.querySelector('#contrasenia2')
-let formRegister = document.querySelector('.continuar')
+let formRegister = document.querySelector('#formularioRegister')
+let erroresGeneralFormulario = document.querySelector('#erroresGeneral')
+let listaErrores = document.querySelector('#erroresListaGeneral')
 
 //los div de los errores
 let nameError = document.querySelector('#nameError')
@@ -33,36 +35,29 @@ password.addEventListener("blur", passwordValidator)
 passwordConfirmed.addEventListener("blur", passwordConfirmedValidator)
 
 //Asignando oyente al formulario general
-formularioLogin.addEventListener("submit", function(event)
+formRegister.addEventListener("submit", function(event)
 {
     let listaErrores = document.querySelector('#erroresListaGeneral')
     if(Object.keys(errors).length >=1)
     {
         event.preventDefault()
-        formularioError.innerHTML = "Fijate los errores de los campos"
-            formularioError.classList.add('cambiando');
+        errorsRegister.innerHTML = "Fijate los errores de los campos"
+            errorsRegister.classList.add('cambiando');
     }
     else{
-        if(email.value.length==0 || pass.value.length==0)
+        if(nameUser.value.length==0 || lastname.value.length==0 || telephone.value.length==0 || email.value.length==0 || pass.value.length==0 || passwordConfirmed.value.length==0 )
         {
             event.preventDefault()
-            console.log("Ade")
-            formularioError.innerHTML = "Ningún campo debe quedar vacio"
-            formularioError.classList.add('cambiando');
+            console.log("error todos vacios")
+            errorsRegister.innerHTML = "Ningún campo debe quedar vacio"
+            errorsRegister.classList.add('cambiando');
         }
         else{
-            if(pass.value.length == 0)
-            {
-                event.preventDefault()
-                formularioError.innerHTML = "Ingrese la contraseña"
-                formularioError.classList.add('cambiando')
-            }
-            else{
                 formularioError.innerHTML = ""
                 formularioError.classList.remove('cambiando');
                 formulario.submit()
             }
-        }
+        
     }
 })
 
@@ -104,17 +99,26 @@ function nombreValidator()
     }
     else
     {
-        if(nameUser.value.length < 3)
+        if(nameUser.value.length < 2)
         {
-            let error = "El nombre debe ser mayor a 3 caracteres"
+            let error = "El nombre debe ser mayor a 2 caracteres"
             errors.name = error
             nameError.innerHTML = error
             validatorGeneric(nameUser, nameError)
         }
         else
         {
+            if(!validator.isAlpha(name.value))
+            {
+                let error = "El nombre solo puede contener letras,corregilo por favor."
+                errors.name = error
+                nameError.innerHTML = error
+                validatorGeneric(nameUser, nameError)
+            }
+            else{
             delete errors.name;
             removiendoCambiosGeneric(nameUser, nameError)
+            }
         }
     }
 }
@@ -130,17 +134,26 @@ function apellidoValidator()
     }
     else
     {
-        if(lastname.value.length < 3)
+        if(lastname.value.length < 2)
         {
-            let error = "El apellido debe ser mayor a 3 caracteres"
+            let error = "El apellido debe ser mayor a 2 caracteres"
             errors.lastname = error
             lastNameError.innerHTML = error
             validatorGeneric(lastname, lastNameError)
         }
         else
         {
+            if(!validator.isAlpha(lastname.value))
+            {
+                let error = "El nombre solo puede contener letras,corregilo por favor."
+                errors.namee = error
+                nameError.innerHTML = error
+                validatorGeneric(lastname, lastNameError)
+            }
+            else {
             delete errors.lastname;
             removiendoCambiosGeneric(lastname, lastNameError)
+            }
         }
     }
 }
@@ -156,17 +169,26 @@ function telefonoValidator()
     }
     else
     {
-        if(telephone.value.length != 10)
+        if(telephone.value.length < 10)
         {
-            let error = "Ingrese un telefono valido"
+            let error = "El teléfono debe tener al menos 10 caracteres, corregilo por favor"
             errors.tel = error
             telephoneError.innerHTML = error
             validatorGeneric(telephone, telephoneError)
         }
         else
         {
-            delete errors.tel;
-            removiendoCambiosGeneric(telephone, telephoneError)
+            if(!validator.isNumeric (telephone.value))
+            {
+                let error = "El teléfono solo puede contener números, corregilo por favor."
+                errors.tel = error
+                telephoneError.innerHTML = error
+                validatorGeneric(telephone, telephoneError)
+            }
+            else{
+                delete errors.tel;
+                removiendoCambiosGeneric(telephone, telephoneError)
+            }
         }
     }
 }

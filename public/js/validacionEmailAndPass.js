@@ -65,11 +65,6 @@ formularioPassEdit.addEventListener("submit", function(event)
     if(Object.keys(errors).length >=1)
     {
         event.preventDefault()
-        //erroresGeneralFormulario.classList.add("errores-general")
-        //Ahora empieza la magia
-        //listaErrores.innerHTML = ""
-        //listaErrores.innerHTML += (errors.email) ? "<li>" + errors.email + "</li>" : ""
-        //listaErrores.innerHTML += (errors.pass) ? "<li>" + errors.pass + "</li>" : ""
         formularioPassError.innerHTML = "Fijate los errores de los campos"
             formularioPassError.classList.add('cambiando');
     }
@@ -136,7 +131,7 @@ function emailValidator() {
     {
         if(!validator.isEmail(email.value))
         {
-            let error = "El e-mail ingresado esta mal papu"
+            let error = "El e-mail ingresado esta mal,corregilo por favor"
             errors.email = error
             emailError.innerHTML = error
             validatorGeneric(email, emailError)

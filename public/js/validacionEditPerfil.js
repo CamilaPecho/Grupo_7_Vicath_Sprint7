@@ -47,18 +47,22 @@ formularioEditPerfil.addEventListener("submit", function(event)
             if(namee.value.length == 0)
             {
                 event.preventDefault()
+                console.log("funciona nombre")
                 formularioError.innerHTML = "Ingrese el nombre"
                 formularioError.classList.add('cambiando')
+                
             }
             if(lastName.value.length == 0)
             {
                 event.preventDefault()
+                console.log("funciona apellido")
                 formularioError.innerHTML = "Ingrese el apellido"
                 formularioError.classList.add('cambiando')
             }
             if(phoneNumber.value.length == 0)
             {
                 event.preventDefault()
+                console.log("funciona nro")
                 formularioError.innerHTML = "Ingrese el télefono"
                 formularioError.classList.add('cambiando')
             }

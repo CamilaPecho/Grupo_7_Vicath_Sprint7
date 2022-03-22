@@ -2,11 +2,11 @@ Credenciales
 <hr>
 Usuario normal:
 
- - E-mail: lucas@gmail.com
+ - E-mail: user1@gmail.com
  - Pass: 12345678
 
 
 Admins:
 
- - E-mail: candela.ergas@gmail.com
- - Pass: 123456
+ - E-mail: admin1@gmail.com
+ - Pass: 12345678

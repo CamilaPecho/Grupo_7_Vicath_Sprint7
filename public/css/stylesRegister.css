@@ -8,6 +8,9 @@
     margin:auto
 }
 
+#editPerfil{
+    width: 70%
+}
 .continuar div input.dato{
     border:0;
     padding: 10px;
